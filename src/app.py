@@ -11,12 +11,18 @@ def status():
     pass
 
 @app.route('/command/<command>', methods=['POST'])
-def command(command=None):
-    pass
+def command():
+    command_to_execute = request.form.get('command')
+    # do cool stuff here
 
 @app.route('/file', methods=['POST'])
 def file():
-    pass
+    if 'file' not in request.files:
+        # something something dangerzone
+        pass
+    else:
+        file_data = request.files['file']
+        # secure save
 
 def main():
     """
