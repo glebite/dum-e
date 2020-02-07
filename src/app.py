@@ -8,7 +8,7 @@ from flask import Flask, request, jsonify
 
 LOGGER = logging.getLogger(__name__)
 LOGGER.setLevel(logging.DEBUG)
-FH = logging.FileHandler('conversion.log')
+FH = logging.FileHandler('app.log')
 FORMATTER = logging.Formatter('%(asctime)s - %(name)s -%(levelname)s - %(message)s')
 FH.setFormatter(FORMATTER)
 FH.setLevel(logging.DEBUG)
@@ -40,6 +40,16 @@ def file():
     else:
         file_data = request.files['file']
         return jsonify(file_data)
+
+@app.route('/quitter', methods=["POST"])
+def quitter():
+    """
+    quitter - shutsdown the werkzeug server
+    """
+    LOGGER.debug("POST /quitter")
+    func = request.environ.get('werkzeug.server.shutdown')
+    func()
+    return jsonify(system_status="quitting", game_status="")
 
 def main():
     """
