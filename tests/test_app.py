@@ -26,6 +26,13 @@ def test_status():
     """
     response = requests.get('http://127.0.0.1:6666/status')
     assert response.status_code == 200
+
+@pytest.mark.test_id(3)
+def test_command():
+    """
+    """
+    response = requests.post('http://127.0.0.1:6666/command/a_command')
+    assert response.status_code == 200
     
 @pytest.mark.test_id(9999)
 def test_quitter():
