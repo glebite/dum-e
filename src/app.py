@@ -18,12 +18,22 @@ app = Flask(__name__)
 
 @app.route('/status', methods=['GET'])
 def status():
+    """
+    status
+    200 OK
+    """
     LOGGER.info("status request coming in...")
     response = app.response_class(status=200)
     return response
 
 @app.route('/command/<command_instruction>', methods=['POST'])
 def command(command_instruction):
+    """
+    command
+    status
+    201 - command sent
+    404 - command not found
+    """
     LOGGER.info("command request coming in...")
     command_to_execute = request.json
     LOGGER.info(str(command_to_execute))
@@ -32,6 +42,12 @@ def command(command_instruction):
 
 @app.route('/file', methods=['POST'])
 def file():
+    """
+    file
+    status
+    201 - file processing
+    404 -file not found
+    """
     LOGGER.info("file request coming in...")
     if 'file' not in request.files:
         LOGGER.error("file not in request.files...")
