@@ -67,6 +67,13 @@ def quitter():
     func()
     return jsonify(system_status="quitting", game_status="")
 
+@app.route('/logs', methods=['GET'])
+def logs():
+    """
+    """
+    LOGGER.debug("GET /logs")
+    
+
 def main():
     """
     stub for now - main function to be called and drive the whole shebang
