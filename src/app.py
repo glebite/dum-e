@@ -4,7 +4,7 @@ app.py - intended to be renamed later
 import sys
 import logging
 import configparser
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 
 LOGGER = logging.getLogger(__name__)
 LOGGER.setLevel(logging.DEBUG)
@@ -38,7 +38,7 @@ def command(command_instruction):
     command_to_execute = request.json
     LOGGER.info(str(command_to_execute))
     # do cool stuff here
-    return jsonify(command_to_execute)
+    return make_response(jsonify(command_to_execute), 200)
 
 @app.route('/file', methods=['POST'])
 def file():
@@ -55,7 +55,7 @@ def file():
         pass
     else:
         file_data = request.files['file']
-        return jsonify(file_data)
+        return make_response(jsonify(file_data), 200)
 
 @app.route('/quitter', methods=["POST"])
 def quitter():
@@ -65,13 +65,14 @@ def quitter():
     LOGGER.debug("POST /quitter")
     func = request.environ.get('werkzeug.server.shutdown')
     func()
-    return jsonify(system_status="quitting", game_status="")
+    return make_response(jsonify(system_status="quitting", game_status=""), 200)
 
 @app.route('/logs', methods=['GET'])
 def logs():
     """
     """
     LOGGER.debug("GET /logs")
+    return make_response(jsonify(something="something else"), 200)
     
 
 def main():
