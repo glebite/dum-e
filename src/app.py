@@ -1,10 +1,17 @@
 """
 app.py - intended to be renamed later
+
+A FLASK server that will run on a remote system such as a raspberry pi.
+The intention is to provide files to it (transfer) and then be built and 
+transferred to a connected Arduino-based board.
+
+This arduino code will in my case be attached to a robot arm.
 """
 import sys
 import logging
 import configparser
-from flask import Flask, request, jsonify, make_response
+from flask import Flask, request, jsonify, make_response, flash, redirect, url_for
+from werkzeug.utils import secure_filename
 
 LOGGER = logging.getLogger(__name__)
 LOGGER.setLevel(logging.DEBUG)
