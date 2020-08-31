@@ -1,8 +1,9 @@
+#!/usr/bin/env python3
 """
 app.py - intended to be renamed later
 
 A FLASK server that will run on a remote system such as a raspberry pi.
-The intention is to provide files to it (transfer) and then be built and 
+The intention is to provide files to it (transfer) and then be built and
 transferred to a connected Arduino-based board.
 
 This arduino code will in my case be attached to a robot arm.
@@ -21,19 +22,19 @@ FH.setFormatter(FORMATTER)
 FH.setLevel(logging.DEBUG)
 LOGGER.addHandler(FH)
 
-app = Flask(__name__)
+APP = Flask(__name__)
 
-@app.route('/status', methods=['GET'])
+@APP.route('/status', methods=['GET'])
 def status():
     """
     status
     200 OK
     """
     LOGGER.info("status request coming in...")
-    response = app.response_class(status=200)
+    response = APP.response_class(status=200)
     return response
 
-@app.route('/command/<command_instruction>', methods=['POST'])
+@APP.route('/command/<command_instruction>', methods=['POST'])
 def command(command_instruction):
     """
     command
@@ -47,7 +48,7 @@ def command(command_instruction):
     # do cool stuff here
     return make_response(jsonify(command_to_execute), 200)
 
-@app.route('/file', methods=['POST'])
+@APP.route('/file', methods=['POST'])
 def file():
     """
     file
@@ -59,12 +60,11 @@ def file():
     if 'file' not in request.files:
         LOGGER.error("file not in request.files...")
         # something something dangerzone
-        pass
     else:
         file_data = request.files['file']
         return make_response(jsonify(file_data), 200)
 
-@app.route('/quitter', methods=["POST"])
+@APP.route('/quitter', methods=["POST"])
 def quitter():
     """
     quitter - shutsdown the werkzeug server
@@ -74,21 +74,21 @@ def quitter():
     func()
     return make_response(jsonify(system_status="quitting", game_status=""), 200)
 
-@app.route('/logs', methods=['GET'])
+@APP.route('/logs', methods=['GET'])
 def logs():
     """
     """
     LOGGER.debug("GET /logs")
     return make_response(jsonify(something="something else"), 200)
-    
+
 
 def main():
     """
     stub for now - main function to be called and drive the whole shebang
     """
     LOGGER.info("Staring the application...")
-    app.run(port=6666, debug=True)
+    APP.run(port=6666, debug=True)
 
-    
+
 if __name__ == "__main__":
     main()
