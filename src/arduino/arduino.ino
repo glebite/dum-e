@@ -6,6 +6,9 @@
 
 // includes
 
+// macros
+#define DEBUG 1
+
 // constants
 
 // globals
@@ -14,6 +17,15 @@
 
 void setup() {
     Serial.begin(115200);    // go broke or go home
+		#ifdef DEBUG
+		Serial.println("Initializing.");
+		#endif
+		
+		// insert good stuff here
+
+		#ifdef DEBUG
+		Serial.println("Initialization complete.");
+		#endif
 }
 
 void loop() {
