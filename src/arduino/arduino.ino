@@ -12,6 +12,8 @@
 // constants
 
 // globals
+String command="";
+byte character;
 
 // local functions
 
@@ -29,4 +31,13 @@ void setup() {
 }
 
 void loop() {
+	if (Serial.available() > 0) {
+		character = Serial.read();
+		command += (char) character;
+		if (character == '\r') {
+			command.trim();
+			Serial.println(command);
+			command="";
+		}
+	}
 }
