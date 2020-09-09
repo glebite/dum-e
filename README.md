@@ -12,3 +12,5 @@ The old workflow was as follows:
 
 Moving the scope to make this more of a universal type of code that can
 be used to drive other similar robotic projects in my house.
+
+Now contains some basic Serial handling code...
